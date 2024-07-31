@@ -1,0 +1,66 @@
+:root {
+  --backgroundcolor: #ffe4e1;
+  --calculatorColor: #708090;
+  --calculatorNameColor: #faf0e6;
+  --calulatorBorderColor: #b0c4de;
+  --screenColor: #32cd32;
+  --keybordColor: #a9a9a9;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: var(--backgroundcolor);
+}
+main {
+  margin-top: 10vh;
+  display: flex;
+  justify-content: center;
+}
+.Calculator {
+  background-color: var(--calculatorColor);
+  width: 400px;
+  height: 80vh;
+  border: 4px solid var(--calulatorBorderColor);
+}
+.NameConteiner {
+  text-align: center;
+  background-color: var(--calulatorBorderColor);
+  margin-bottom: 20px;
+}
+.Name {
+  color: var(--calculatorNameColor);
+  font-size: 21px;
+}
+.Screen {
+  text-align: center;
+  background-color: var(--screenColor);
+  width: 80%;
+  height: 12%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+}
+#value1 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: var(--backgroundcolor);
+  padding-right: 10px;
+  padding-top: 5px;
+}
+#value2 {
+  font-size: 26px;
+  color: var(--backgroundcolor);
+  padding-right: 10px;
+}
+.keybord {
+  background-color: var(--keybordColor);
+  width: 90%;
+  height: 70%;
+  margin: auto;
+  margin-top: 30px;
+}
