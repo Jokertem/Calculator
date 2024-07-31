@@ -5,6 +5,9 @@
   --calulatorBorderColor: #b0c4de;
   --screenColor: #32cd32;
   --keybordColor: #a9a9a9;
+  --controlButtonsColor: #cd5c5c;
+  --memoryButtonsColor: #8a2be2;
+  --operatorButtonsColor: #1e90ff;
 }
 * {
   margin: 0;
@@ -63,4 +66,31 @@ main {
   height: 70%;
   margin: auto;
   margin-top: 30px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 50px);
+  justify-content: center;
+  align-items: center;
+}
+.operator,
+.memory,
+.number,
+.control {
+  height: 40px;
+  width: 40px;
+  font-weight: bold;
+}
+
+.control {
+  background-color: var(--controlButtonsColor);
+  color: var(--calculatorNameColor);
+}
+.memory {
+  background-color: var(--memoryButtonsColor);
+}
+.number {
+  background-color: var(--backgroundcolor);
+}
+.operator {
+  background-color: var(--operatorButtonsColor);
 }
