@@ -13,9 +13,10 @@ Value1Element.innerText = "";
 Value2Element.innerText = "0";
 let Value1 = "";
 let Value2 = "";
+let Opereator = "";
 const updateScreen = () => {
     MemoryElement.innerText = MemoryText;
-    Value1Element.innerText = Value1;
+    Value1Element.innerText = `${Value1} ${Opereator}`;
     Value2Element.innerText = Value2;
 };
 const Restart = () => {
@@ -27,6 +28,7 @@ const Restart = () => {
     MemoryText = `M = ${MemoryValue}`;
     Value1Element.innerText = Value1;
     Value2Element.innerText = Value2;
+    Opereator = "";
 };
 Restart();
 const Keybord = document.querySelector(".keybord");
@@ -69,13 +71,14 @@ operators.forEach((element) => {
     };
     Buttons.push(NewOperator);
 });
+Buttons.push({ Value: "=", Type: buttonTypeEnum.CONTROL });
 renderButtons(Buttons, Keybord);
 //render Click Numbers
 ButtonsElement.forEach(button => {
     if (button.classList.contains(buttonTypeEnum.NUMBER)) {
         if (button.id == ".") {
             button.addEventListener("click", () => {
-                if (Value2.charAt(Value2.length - 1) == ".") {
+                if (Value2.charAt(1, Value2.length - 1) == ".") {
                     return;
                 }
                 Value2 += button.innerText;
@@ -115,4 +118,40 @@ ButtonsElement.forEach(button => {
         }
     }
 });
-//renderClicks(Value2,updateScreen,Restart);
+//Render Click Opereator
+ButtonsElement.forEach(button => {
+    if (button.classList.contains(buttonTypeEnum.OPERATOR)) {
+        button.addEventListener("click", () => {
+            Opereator = button.id;
+            Value1 = `${Value2}`;
+            Value2 = "0";
+            Opereator = button.id;
+            updateScreen();
+        });
+    }
+});
+//Render Click Equal
+ButtonsElement.forEach(button => {
+    if (button.id == "=") {
+        button.addEventListener("click", () => EqualTo(Value1, Value2));
+    }
+});
+const EqualTo = (V1, V2) => {
+    switch (Opereator) {
+        case operators[0]:
+            Value2 = Number(Value1) + Number(Value2);
+            break;
+        case operators[1]:
+            Value2 = Number(Value1) - Number(Value2);
+            break;
+        case operators[2]:
+            Value2 = Number(Value1) * Number(Value2);
+            break;
+        case operators[3]:
+            Value2 = Number(Value1) / Number(Value2);
+            break;
+        default:
+            break;
+    }
+    updateScreen();
+};
