@@ -44,7 +44,7 @@ Clear();
 
 
 
-const Keybord: HTMLDivElement = document.querySelector(".keybord");
+const Keybord: HTMLDivElement = document.querySelector(".keys");
 
 const Buttons: IButton[] = [
   {

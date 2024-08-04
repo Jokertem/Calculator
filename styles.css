@@ -64,11 +64,19 @@ main {
   color: var(--calculatorNameColor);
   align-self: start;
 }
+
 .keybord {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  min-height: 50%;
+  margin: auto;
+  padding-bottom: 20px;
+}
+.keys {
   background-color: var(--keybordColor);
   width: 90%;
-  max-height: 65%;
-  margin: auto;
   margin-top: 30px;
   padding: 10px;
   display: grid;

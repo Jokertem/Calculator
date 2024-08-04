@@ -25,7 +25,7 @@ const Clear = () => {
     Opereator = "";
 };
 Clear();
-const Keybord = document.querySelector(".keybord");
+const Keybord = document.querySelector(".keys");
 const Buttons = [
     {
         Value: "C",
