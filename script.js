@@ -7,30 +7,24 @@ const MemoryElement = document.querySelector("#valueM");
 const Value1Element = document.querySelector("#value1");
 const Value2Element = document.querySelector("#value2");
 let MemoryValue = 0;
-let MemoryText = `M = ${MemoryValue}`;
-MemoryElement.innerText = MemoryText;
 Value1Element.innerText = "";
 Value2Element.innerText = "0";
 let Value1 = "";
 let Value2 = "";
 let Opereator = "";
 const updateScreen = () => {
-    MemoryElement.innerText = MemoryText;
+    MemoryElement.innerText = `M=${MemoryValue}`;
     Value1Element.innerText = `${Value1} ${Opereator}`;
     Value2Element.innerText = Value2;
 };
-const Restart = () => {
-    MemoryValue = 0;
-    MemoryText = `M = ${MemoryValue}`;
-    MemoryElement.innerText = MemoryText;
+const Clear = () => {
     Value1 = "";
     Value2 = "0";
-    MemoryText = `M = ${MemoryValue}`;
     Value1Element.innerText = Value1;
     Value2Element.innerText = Value2;
     Opereator = "";
 };
-Restart();
+Clear();
 const Keybord = document.querySelector(".keybord");
 const Buttons = [
     {
@@ -53,6 +47,10 @@ const Buttons = [
         Value: "MR",
         Type: buttonTypeEnum.MEMORY,
     },
+    {
+        Value: "MC",
+        Type: buttonTypeEnum.MEMORY,
+    },
 ];
 export const ButtonsElement = [];
 for (let index = 9; index > -1; index--) {
@@ -63,7 +61,8 @@ for (let index = 9; index > -1; index--) {
     Buttons.push(element);
 }
 Buttons.push({ Value: ".", Type: buttonTypeEnum.NUMBER });
-const operators = ["+", "-", "*", "/"];
+Buttons.push({ Value: "+/-", Type: buttonTypeEnum.NUMBER });
+const operators = ["+", "-", "*", "/", "√"];
 operators.forEach((element) => {
     const NewOperator = {
         Value: element,
@@ -75,7 +74,7 @@ Buttons.push({ Value: "=", Type: buttonTypeEnum.CONTROL });
 renderButtons(Buttons, Keybord);
 //render Click Numbers
 ButtonsElement.forEach(button => {
-    if (button.classList.contains(buttonTypeEnum.NUMBER)) {
+    if (button.classList.contains(buttonTypeEnum.NUMBER) && button.id != "+/-") {
         if (button.id == ".") {
             button.addEventListener("click", () => {
                 if (Value2.charAt(1, Value2.length - 1) == ".") {
@@ -101,11 +100,19 @@ ButtonsElement.forEach(button => {
         }
     }
 });
+// Render Plus and Minus Click
+ButtonsElement.forEach(button => {
+    if (button.id == "+/-") {
+        button.addEventListener("click", () => {
+            alert("minus");
+        });
+    }
+});
 // Render Click Clear and Delete
 ButtonsElement.forEach(button => {
     if (button.classList.contains(buttonTypeEnum.CONTROL)) {
         if (button.id == "C") {
-            button.addEventListener("click", Restart);
+            button.addEventListener("click", Clear);
         }
         else if (button.id == "DEL") {
             button.addEventListener("click", () => {
@@ -120,12 +127,22 @@ ButtonsElement.forEach(button => {
 });
 //Render Click Opereator
 ButtonsElement.forEach(button => {
-    if (button.classList.contains(buttonTypeEnum.OPERATOR)) {
+    if (button.classList.contains(buttonTypeEnum.OPERATOR) && button.id != "√") {
         button.addEventListener("click", () => {
+            if (Opereator != "" && Value2 == "0") {
+                Opereator = button.id;
+                updateScreen();
+                return;
+            }
             Opereator = button.id;
             Value1 = `${Value2}`;
             Value2 = "0";
-            Opereator = button.id;
+            updateScreen();
+        });
+    }
+    else if (button.id == "√") {
+        button.addEventListener("click", () => {
+            Value2 = Math.sqrt(Number(Value2));
             updateScreen();
         });
     }
@@ -155,3 +172,30 @@ const EqualTo = (V1, V2) => {
     }
     updateScreen();
 };
+//render Click Memory
+ButtonsElement.forEach(button => {
+    if (button.id == "M-") {
+        button.addEventListener("click", () => {
+            MemoryValue -= Number(Value2);
+            updateScreen();
+        });
+    }
+    else if (button.id == "M+") {
+        button.addEventListener("click", () => {
+            MemoryValue += Number(Value2);
+            updateScreen();
+        });
+    }
+    else if (button.id == "MR") {
+        button.addEventListener("click", () => {
+            Value2 = MemoryValue;
+            updateScreen();
+        });
+    }
+    else if (button.id == "MC") {
+        button.addEventListener("click", () => {
+            MemoryValue = 0;
+            updateScreen();
+        });
+    }
+});

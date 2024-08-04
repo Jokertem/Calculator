@@ -73,7 +73,7 @@ main {
   padding: 10px;
   display: grid;
   grid-template-columns: repeat(4, 50px);
-  grid-template-rows: repeat(6, 55px);
+  grid-template-rows: repeat(6, 50px);
   justify-content: center;
   align-items: center;
 }
