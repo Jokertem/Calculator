@@ -104,7 +104,13 @@ ButtonsElement.forEach(button => {
 ButtonsElement.forEach(button => {
     if (button.id == "+/-") {
         button.addEventListener("click", () => {
-            alert("minus");
+            if (Value2.substring(0, 1) != "-") {
+                Value2 = Value2.replace(Value2, `-${Value2}`);
+            }
+            else {
+                Value2 = Value2.substring(1);
+            }
+            updateScreen();
         });
     }
 });
